@@ -9,13 +9,12 @@ using System.Threading.Tasks;
 
 namespace MultiDownloader.Host
 {
-    public static class ServicesExtension
+    public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection ConfigureDatabase(this IServiceCollection services)
+        public static IServiceCollection AddDbConfiguration(this IServiceCollection services, string? connectionString)
         {
-            //TODO: AddConnectionString
             services.AddDbContext<GeneralDbContext>(options =>
-                options.UseSqlServer(""));
+                options.UseSqlServer(connectionString));
             return services;
         }
     }

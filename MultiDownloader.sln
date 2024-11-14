@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34511.84
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiDownloader.Host", "MultiDownloader\MultiDownloader.Host.csproj", "{9CDECDEC-08A5-4F42-9570-2ED32AFAF933}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MultiDownloader.Host", "MultiDownloader\MultiDownloader.Host.csproj", "{9CDECDEC-08A5-4F42-9570-2ED32AFAF933}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiDownloader.DAL", "DAL\MultiDownloader.DAL.csproj", "{9D06F9A4-CCB8-4F06-B087-0283DFA5FA19}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MultiDownloader.DAL", "DAL\MultiDownloader.DAL.csproj", "{9D06F9A4-CCB8-4F06-B087-0283DFA5FA19}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiDownloader.Models", "MultiDownloader.Models\MultiDownloader.Models.csproj", "{F4F2D5D0-0B7A-4255-B532-76D68452B780}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MultiDownloader.Models", "MultiDownloader.Models\MultiDownloader.Models.csproj", "{F4F2D5D0-0B7A-4255-B532-76D68452B780}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiDownloader.Processor", "MultiDownloader.Processor\MultiDownloader.Processor.csproj", "{3C11A701-C0A9-480F-AB5A-6CF0567E4D07}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MultiDownloader.Processor", "MultiDownloader.Processor\MultiDownloader.Processor.csproj", "{3C11A701-C0A9-480F-AB5A-6CF0567E4D07}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
