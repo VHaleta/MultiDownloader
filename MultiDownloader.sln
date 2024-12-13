@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MultiDownloader.DAL", "DAL\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MultiDownloader.Models", "MultiDownloader.Models\MultiDownloader.Models.csproj", "{F4F2D5D0-0B7A-4255-B532-76D68452B780}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MultiDownloader.Processor", "MultiDownloader.Processor\MultiDownloader.Processor.csproj", "{3C11A701-C0A9-480F-AB5A-6CF0567E4D07}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MultiDownloader.TgBotProcessor", "MultiDownloader.Processor\MultiDownloader.TgBotProcessor.csproj", "{3C11A701-C0A9-480F-AB5A-6CF0567E4D07}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiDownloader.Database", "MultiDownloader.Database\MultiDownloader.Database.csproj", "{01E62291-4EF0-41DA-98FA-5AB162BD3038}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{3C11A701-C0A9-480F-AB5A-6CF0567E4D07}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3C11A701-C0A9-480F-AB5A-6CF0567E4D07}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3C11A701-C0A9-480F-AB5A-6CF0567E4D07}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01E62291-4EF0-41DA-98FA-5AB162BD3038}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01E62291-4EF0-41DA-98FA-5AB162BD3038}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01E62291-4EF0-41DA-98FA-5AB162BD3038}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01E62291-4EF0-41DA-98FA-5AB162BD3038}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

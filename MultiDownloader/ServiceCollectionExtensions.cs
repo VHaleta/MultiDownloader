@@ -1,11 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using MultiDownloader.DAL;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using MultiDownloader.Database;
 
 namespace MultiDownloader.Host
 {
@@ -13,7 +8,7 @@ namespace MultiDownloader.Host
     {
         public static IServiceCollection AddDbConfiguration(this IServiceCollection services, string? connectionString)
         {
-            services.AddDbContext<GeneralDbContext>(options =>
+            services.AddDbContext<MultiDownloaderContext>(options =>
                 options.UseSqlServer(connectionString));
             return services;
         }

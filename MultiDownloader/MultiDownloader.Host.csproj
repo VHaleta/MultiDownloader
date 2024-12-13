@@ -9,6 +9,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.0" />
     <PackageReference Include="Serilog" Version="4.1.0" />
@@ -21,7 +29,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DAL\MultiDownloader.DAL.csproj" />
-    <ProjectReference Include="..\MultiDownloader.Processor\MultiDownloader.Processor.csproj" />
+    <ProjectReference Include="..\MultiDownloader.Database\MultiDownloader.Database.csproj" />
+    <ProjectReference Include="..\MultiDownloader.Processor\MultiDownloader.TgBotProcessor.csproj" />
   </ItemGroup>
 
   <ItemGroup>

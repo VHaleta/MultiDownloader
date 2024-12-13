@@ -4,6 +4,8 @@ using Telegram.Bot;
 using Microsoft.Extensions.Configuration;
 using MultiDownloader.Processor;
 using Serilog;
+using Microsoft.AspNetCore.Hosting;
+using MultiDownloader.Database;
 
 namespace MultiDownloader.Host
 {
@@ -33,7 +35,7 @@ namespace MultiDownloader.Host
                         services.AddSingleton<ITelegramBotClient>(provider =>
                             new TelegramBotClient(context.Configuration["TelegramBot:Token"] ?? ""));
 
-                        services.AddDbConfiguration(context.Configuration["ConnectionStrings:DefaultConnection"]);
+                        services.AddDbConfiguration(context.Configuration["ConnectionStrings:MultiDownloaderDb"]);
 
                         services.AddHostedService<TelegramBotHostedService>();
                     })
@@ -43,6 +45,7 @@ namespace MultiDownloader.Host
                     })
                     .Build();
 
+                host.Services.GetService<MultiDownloaderContext>()?.EnsureSeedData();
                 await host.RunAsync();
             }
             catch (Exception ex)
@@ -54,5 +57,13 @@ namespace MultiDownloader.Host
                 Log.CloseAndFlush();
             }
         }
+
+        public static IHostBuilder CreateHostBuilder(string[] args)
+            => Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder(args)
+            .ConfigureAppConfiguration((context, config) =>
+            {
+                config.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+                config.AddUserSecrets<Program>();
+            });
     }
 }
