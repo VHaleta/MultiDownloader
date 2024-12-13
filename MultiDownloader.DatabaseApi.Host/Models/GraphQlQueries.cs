@@ -5,7 +5,8 @@ namespace MultiDownloader.DatabaseApi.Host.Models
 {
     public class GraphQlQueries
     {
-        public IQueryable<User> Read([Service] MultiDownloaderContext contex) =>
+        [UseProjection]
+        public IQueryable<User> GetUsers([Service] MultiDownloaderContext contex) =>
             contex.Users;
     }
 }

@@ -12,7 +12,7 @@ using MultiDownloader.DatabaseApi.Database;
 namespace MultiDownloader.DatabaseApi.Database.Migrations
 {
     [DbContext(typeof(MultiDownloaderContext))]
-    [Migration("20241213194859_InitialMigration")]
+    [Migration("20241213224241_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -66,10 +66,7 @@ namespace MultiDownloader.DatabaseApi.Database.Migrations
             modelBuilder.Entity("MultiDownloader.DatabaseApi.Database.Models.User", b =>
                 {
                     b.Property<long>("ChatId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("ChatId"));
 
                     b.Property<string>("FirstName")
                         .IsRequired()

@@ -17,7 +17,8 @@ namespace MultiDownloader.DatabaseApi.Host
         {
             services
                 .AddGraphQLServer()
-                .AddQueryType<GraphQlQueries>();
+                .AddQueryType<GraphQlQueries>()
+                .AddProjections();
 
             return services;
         }

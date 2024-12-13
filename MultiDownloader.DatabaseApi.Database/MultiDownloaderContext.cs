@@ -1,10 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MultiDownloader.DatabaseApi.Database.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MultiDownloader.DatabaseApi.Database
 {
@@ -23,6 +18,10 @@ namespace MultiDownloader.DatabaseApi.Database
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<User>()
+                .Property(u => u.ChatId)
+                .ValueGeneratedNever();
+
             modelBuilder.Entity<Job>()
                 .HasOne(j => j.User)
                 .WithMany(u => u.Jobs)

@@ -1,5 +1,3 @@
-
-using Microsoft.Extensions.Hosting;
 using MultiDownloader.DatabaseApi.Database;
 using MultiDownloader.DatabaseApi.Host;
 using Serilog;
