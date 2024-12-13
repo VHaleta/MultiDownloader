@@ -5,7 +5,6 @@ using Microsoft.Extensions.Configuration;
 using MultiDownloader.Processor;
 using Serilog;
 using Microsoft.AspNetCore.Hosting;
-using MultiDownloader.Database;
 
 namespace MultiDownloader.Host
 {
@@ -35,8 +34,6 @@ namespace MultiDownloader.Host
                         services.AddSingleton<ITelegramBotClient>(provider =>
                             new TelegramBotClient(context.Configuration["TelegramBot:Token"] ?? ""));
 
-                        services.AddDbConfiguration(context.Configuration["ConnectionStrings:MultiDownloaderDb"]);
-
                         services.AddHostedService<TelegramBotHostedService>();
                     })
                     .UseSerilog((context, services, configuration) =>
@@ -45,7 +42,6 @@ namespace MultiDownloader.Host
                     })
                     .Build();
 
-                host.Services.GetService<MultiDownloaderContext>()?.EnsureSeedData();
                 await host.RunAsync();
             }
             catch (Exception ex)

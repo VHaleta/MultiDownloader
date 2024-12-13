@@ -12,7 +12,7 @@ using MultiDownloader.DatabaseApi.Database;
 namespace MultiDownloader.DatabaseApi.Database.Migrations
 {
     [DbContext(typeof(MultiDownloaderContext))]
-    [Migration("20241213143029_InitialMigration")]
+    [Migration("20241213194859_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />

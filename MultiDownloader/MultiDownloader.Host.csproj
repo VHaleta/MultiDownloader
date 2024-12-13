@@ -28,8 +28,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DAL\MultiDownloader.DAL.csproj" />
-    <ProjectReference Include="..\MultiDownloader.Database\MultiDownloader.Database.csproj" />
     <ProjectReference Include="..\MultiDownloader.Processor\MultiDownloader.TgBotProcessor.csproj" />
   </ItemGroup>
 

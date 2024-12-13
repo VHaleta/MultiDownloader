@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 
-namespace MultiDownloader.Database
+namespace MultiDownloader.DatabaseApi.Database
 {
     internal class MultiDownloaderContextFactory : IDesignTimeDbContextFactory<MultiDownloaderContext>
     {

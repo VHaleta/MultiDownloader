@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MultiDownloader.Database.Models;
+using MultiDownloader.DatabaseApi.Database.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MultiDownloader.Database
+namespace MultiDownloader.DatabaseApi.Database
 {
     public class MultiDownloaderContext : DbContext
     {

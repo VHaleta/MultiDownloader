@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace MultiDownloader.Database.Models
+namespace MultiDownloader.DatabaseApi.Database.Models
 {
     public class Job
     {
