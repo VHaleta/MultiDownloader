@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MultiDownloader.DatabaseApi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MultiDownloader.DatabaseApi.Host", "DatabaseApi\MultiDownloader.DatabaseApi.Host\MultiDownloader.DatabaseApi.Host.csproj", "{211638D5-BC64-4FAB-9985-05DCEEC748E2}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TelegramHost", "TelegramHost", "{0FFC9CAE-4F8C-40E0-9AD6-5B376D0D6CD6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
