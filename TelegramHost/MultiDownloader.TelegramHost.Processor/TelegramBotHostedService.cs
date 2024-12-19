@@ -1,17 +1,12 @@
 ﻿using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Serilog;
+using Telegram.Bot;
 using Telegram.Bot.Exceptions;
 using Telegram.Bot.Polling;
-using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types;
-using Telegram.Bot;
-using Serilog;
+using Telegram.Bot.Types.Enums;
 
-namespace MultiDownloader.Processor
+namespace MultiDownloader.TelegramHost.Processor
 {
     public class TelegramBotHostedService : IHostedService
     {

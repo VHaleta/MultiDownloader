@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-
-namespace MultiDownloader.Host
+﻿namespace MultiDownloader.TelegramHost.Host
 {
     public static class ServiceCollectionExtensions
     {
