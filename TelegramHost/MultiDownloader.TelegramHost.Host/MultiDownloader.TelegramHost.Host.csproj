@@ -28,7 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MultiDownloader.Processor\MultiDownloader.TgBotProcessor.csproj" />
+    <ProjectReference Include="..\MultiDownloader.TelegramHost.Processor\MultiDownloader.TelegramHost.TgBotProcessor.csproj" />
   </ItemGroup>
 
   <ItemGroup>

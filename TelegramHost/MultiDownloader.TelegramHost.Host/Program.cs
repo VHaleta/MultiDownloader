@@ -2,11 +2,11 @@
 using Microsoft.Extensions.Hosting;
 using Telegram.Bot;
 using Microsoft.Extensions.Configuration;
-using MultiDownloader.Processor;
 using Serilog;
 using Microsoft.AspNetCore.Hosting;
+using MultiDownloader.TelegramHost.Processor;
 
-namespace MultiDownloader.Host
+namespace MultiDownloader.TelegramHost.Host
 {
     internal class Program
     {
