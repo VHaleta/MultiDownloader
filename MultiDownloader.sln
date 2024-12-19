@@ -16,6 +16,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MultiDownloader.TelegramHost.TgBotProcessor", "TelegramHost\MultiDownloader.TelegramHost.Processor\MultiDownloader.TelegramHost.TgBotProcessor.csproj", "{5547AFBB-ABF0-4DBD-A5AD-5D9FCB795A9A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MultiDownloader.TelegramHost.Host", "TelegramHost\MultiDownloader.TelegramHost.Host\MultiDownloader.TelegramHost.Host.csproj", "{F4764102-3397-42A1-858E-FE07BBF9A096}"
+	ProjectSection(ProjectDependencies) = postProject
+		{5547AFBB-ABF0-4DBD-A5AD-5D9FCB795A9A} = {5547AFBB-ABF0-4DBD-A5AD-5D9FCB795A9A}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
