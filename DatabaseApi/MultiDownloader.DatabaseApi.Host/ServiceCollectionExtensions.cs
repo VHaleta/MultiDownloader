@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MultiDownloader.DatabaseApi.Business.Repositories;
 using MultiDownloader.DatabaseApi.Database;
+using MultiDownloader.DatabaseApi.Database.Repositories;
 using MultiDownloader.DatabaseApi.Host.Models;
 
 namespace MultiDownloader.DatabaseApi.Host
@@ -18,7 +20,17 @@ namespace MultiDownloader.DatabaseApi.Host
             services
                 .AddGraphQLServer()
                 .AddQueryType<GraphQlQueries>()
-                .AddProjections();
+//                .AddMutationType<GraphQlMutations>()
+                .AddProjections()
+                .AddFiltering();
+
+            return services;
+        }
+
+        public static IServiceCollection AddBusinessLayer(this IServiceCollection services)
+        {
+            services.AddScoped<IJobRepository, JobRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
 
             return services;
         }

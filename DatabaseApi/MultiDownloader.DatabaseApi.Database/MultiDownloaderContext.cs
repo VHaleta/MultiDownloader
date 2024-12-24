@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MultiDownloader.DatabaseApi.Database.Models;
+using MultiDownloader.DatabaseApi.Models;
 
 namespace MultiDownloader.DatabaseApi.Database
 {

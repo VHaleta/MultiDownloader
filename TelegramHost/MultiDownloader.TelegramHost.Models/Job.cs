@@ -1,4 +1,4 @@
-﻿using MultiDownloader.Models.Enums;
+﻿using MultiDownloader.TelegramHost.Models.Enums;
 
 namespace MultiDownloader.TelegramHost.Models
 {
