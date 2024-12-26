@@ -1,4 +1,3 @@
-using MultiDownloader.DatabaseApi.Business.Repositories;
 using MultiDownloader.DatabaseApi.Database;
 using MultiDownloader.DatabaseApi.Host;
 using Serilog;
@@ -11,46 +10,52 @@ Log.Logger = new LoggerConfiguration()
         .Build())
     .CreateLogger();
 
-var builder = WebApplication.CreateBuilder(args);
-
-builder.Host.UseSerilog((context, services, configuration) =>
+try
 {
-    configuration.ReadFrom.Configuration(context.Configuration);
-});
+    var builder = WebApplication.CreateBuilder(args);
 
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
-builder.Services.AddDbConfiguration(builder.Configuration["ConnectionStrings:MultiDownloaderDb"]);
-builder.Services.AddGraphQlConfiguration();
-builder.Services.AddBusinessLayer();
-
-var app = builder.Build();
-
-using (var scope = app.Services.CreateScope())
-{
-    var dbContext = scope.ServiceProvider.GetRequiredService<MultiDownloaderContext>();
-    dbContext.EnsureSeedData();
-    var testRepository = scope.ServiceProvider.GetService<IUserRepository>();
-    if (testRepository == null)
+    builder.Host.UseSerilog((context, services, configuration) =>
     {
-        throw new Exception("IUserRepository is not registered correctly.");
+        configuration.ReadFrom.Configuration(context.Configuration);
+    });
+
+    // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+    builder.Services.AddControllers();
+    builder.Services.AddEndpointsApiExplorer();
+    builder.Services.AddSwaggerGen();
+
+    builder.Services.AddDbConfiguration(builder.Configuration["ConnectionStrings:MultiDownloaderDb"]);
+    builder.Services.AddGraphQlConfiguration();
+    builder.Services.AddBusinessLayer();
+
+    var app = builder.Build();
+
+    using (var scope = app.Services.CreateScope())
+    {
+        var dbContext = scope.ServiceProvider.GetRequiredService<MultiDownloaderContext>();
+        dbContext.EnsureSeedData();
     }
-}
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+    // Configure the HTTP request pipeline.
+    if (app.Environment.IsDevelopment())
+    {
+        app.UseSwagger();
+        app.UseSwaggerUI();
+    }
+
+    app.UseHttpsRedirection();
+
+    app.MapControllers();
+    app.MapGraphQL();
+    //app.UseAuthorization();
+
+    app.Run();
+}
+catch (Exception ex)
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    Log.Fatal(ex, "Application start-up failed");
 }
-
-app.UseHttpsRedirection();
-
-app.MapControllers();
-app.MapGraphQL();
-//app.UseAuthorization();
-
-app.Run();
+finally
+{
+    Log.CloseAndFlush();
+}

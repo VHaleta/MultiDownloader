@@ -27,10 +27,7 @@
   <ItemGroup>
     <ProjectReference Include="..\MultiDownloader.DatabaseApi.Business\MultiDownloader.DatabaseApi.Business.csproj" />
     <ProjectReference Include="..\MultiDownloader.DatabaseApi.Database\MultiDownloader.DatabaseApi.Database.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Controllers\" />
+    <ProjectReference Include="..\MultiDownloader.DatabaseApi.Models\MultiDownloader.DatabaseApi.Models.csproj" />
   </ItemGroup>
 
 </Project>
