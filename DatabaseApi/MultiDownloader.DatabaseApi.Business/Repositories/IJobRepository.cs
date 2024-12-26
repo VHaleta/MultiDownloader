@@ -6,6 +6,7 @@ namespace MultiDownloader.DatabaseApi.Business.Repositories
     {
         Task<IEnumerable<Job>> GetAllJobsAsync();
         Task<Job?> GetJobByIdAsync(int jobId);
+        Task<IEnumerable<Job>> GetJobsByUserAsync(long chatId);
         Task AddJobAsync(Job job);
         Task UpdateJobAsync(Job job);
         Task DeleteJobAsync(int jobId);

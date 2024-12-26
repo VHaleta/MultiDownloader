@@ -17,9 +17,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MultiDownloader.TelegramHos
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MultiDownloader.TelegramHost.Host", "TelegramHost\MultiDownloader.TelegramHost.Host\MultiDownloader.TelegramHost.Host.csproj", "{F4764102-3397-42A1-858E-FE07BBF9A096}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiDownloader.DatabaseApi.Business", "DatabaseApi\MultiDownloader.DatabaseApi.Business\MultiDownloader.DatabaseApi.Business.csproj", "{229699F6-7648-4E13-92B9-CE0EA4759892}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MultiDownloader.DatabaseApi.Business", "DatabaseApi\MultiDownloader.DatabaseApi.Business\MultiDownloader.DatabaseApi.Business.csproj", "{229699F6-7648-4E13-92B9-CE0EA4759892}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiDownloader.DatabaseApi.Models", "DatabaseApi\MultiDownloader.DatabaseApi.Models\MultiDownloader.DatabaseApi.Models.csproj", "{421FC16B-5F4C-4E02-8FEF-55EC653F379A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MultiDownloader.DatabaseApi.Models", "DatabaseApi\MultiDownloader.DatabaseApi.Models\MultiDownloader.DatabaseApi.Models.csproj", "{421FC16B-5F4C-4E02-8FEF-55EC653F379A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiDownloader.DatabaseApi.GrpcHost", "DatabaseApi\MultiDownloader.DatabaseApi.GrpcHost\MultiDownloader.DatabaseApi.GrpcHost.csproj", "{6295513A-A600-428E-82BF-20854D86C193}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiDownloader.TelegramHost.Database", "TelegramHost\MultiDownloader.TelegramHost.Database\MultiDownloader.TelegramHost.Database.csproj", "{EEB394A1-5C5C-4953-A531-3A18A5DFD766}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,6 +59,14 @@ Global
 		{421FC16B-5F4C-4E02-8FEF-55EC653F379A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{421FC16B-5F4C-4E02-8FEF-55EC653F379A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{421FC16B-5F4C-4E02-8FEF-55EC653F379A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6295513A-A600-428E-82BF-20854D86C193}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6295513A-A600-428E-82BF-20854D86C193}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6295513A-A600-428E-82BF-20854D86C193}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6295513A-A600-428E-82BF-20854D86C193}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EEB394A1-5C5C-4953-A531-3A18A5DFD766}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EEB394A1-5C5C-4953-A531-3A18A5DFD766}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EEB394A1-5C5C-4953-A531-3A18A5DFD766}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EEB394A1-5C5C-4953-A531-3A18A5DFD766}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -67,6 +79,8 @@ Global
 		{F4764102-3397-42A1-858E-FE07BBF9A096} = {0FFC9CAE-4F8C-40E0-9AD6-5B376D0D6CD6}
 		{229699F6-7648-4E13-92B9-CE0EA4759892} = {45C15285-D6AE-4ADD-AC3F-93CBCAB10DEE}
 		{421FC16B-5F4C-4E02-8FEF-55EC653F379A} = {45C15285-D6AE-4ADD-AC3F-93CBCAB10DEE}
+		{6295513A-A600-428E-82BF-20854D86C193} = {45C15285-D6AE-4ADD-AC3F-93CBCAB10DEE}
+		{EEB394A1-5C5C-4953-A531-3A18A5DFD766} = {0FFC9CAE-4F8C-40E0-9AD6-5B376D0D6CD6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A08834C6-3ED3-44A3-B6EF-AEBA65A2DF4A}

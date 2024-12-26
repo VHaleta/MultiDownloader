@@ -26,6 +26,11 @@ namespace MultiDownloader.DatabaseApi.Database.Repositories
             .Include(job => job.User)
             .FirstOrDefaultAsync(j => j.JobId == jobId);
 
+        public async Task<IEnumerable<Job>> GetJobsByUserAsync(long chatId) =>
+            await _context.Jobs
+                .Where(job => job.ChatId == chatId)
+                .ToListAsync();
+
         public async Task AddJobAsync(Job job)
         {
             await _semaphore.WaitAsync();
