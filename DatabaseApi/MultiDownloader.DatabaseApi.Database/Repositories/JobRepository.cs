@@ -7,7 +7,6 @@ namespace MultiDownloader.DatabaseApi.Database.Repositories
     public class JobRepository : IJobRepository
     {
         private readonly MultiDownloaderContext _context;
-        private readonly SemaphoreSlim _semaphore = new SemaphoreSlim(1, 1);
 
         public JobRepository(MultiDownloaderContext context)
         {
@@ -33,47 +32,23 @@ namespace MultiDownloader.DatabaseApi.Database.Repositories
 
         public async Task AddJobAsync(Job job)
         {
-            await _semaphore.WaitAsync();
-            try
-            {
-                _context.Jobs.Add(job);
-                await _context.SaveChangesAsync();
-            }
-            finally
-            {
-                _semaphore.Release();
-            }
+            _context.Jobs.Add(job);
+            await _context.SaveChangesAsync();
         }
 
         public async Task UpdateJobAsync(Job job)
         {
-            await _semaphore.WaitAsync();
-            try
-            {
-                _context.Jobs.Update(job);
-                await _context.SaveChangesAsync();
-            }
-            finally
-            {
-                _semaphore.Release();
-            }
+            _context.Jobs.Update(job);
+            await _context.SaveChangesAsync();
         }
 
         public async Task DeleteJobAsync(int jobId)
         {
-            await _semaphore.WaitAsync();
-            try
+            var job = await GetJobByIdAsync(jobId);
+            if (job != null)
             {
-                var job = await GetJobByIdAsync(jobId);
-                if (job != null)
-                {
-                    _context.Jobs.Remove(job);
-                    await _context.SaveChangesAsync();
-                }
-            }
-            finally
-            {
-                _semaphore.Release();
+                _context.Jobs.Remove(job);
+                await _context.SaveChangesAsync();
             }
         }
     }

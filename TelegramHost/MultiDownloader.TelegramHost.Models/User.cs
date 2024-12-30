@@ -8,7 +8,6 @@
         public string LastName { get; set; } = String.Empty;
         public DateTime LastActivityDate { get; set; }
 
-        //EFCore
-        public List<Job> Jobs { get; set; } = new List<Job>();
+        public List<int> JobIds { get; set; } = new List<int>();
     }
 }

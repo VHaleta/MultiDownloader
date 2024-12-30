@@ -1,5 +1,7 @@
 ﻿using Microsoft.Extensions.Hosting;
+using MultiDownloader.TelegramHost.TgBotProcessor.Repositories;
 using Serilog;
+using System.Text.Json;
 using Telegram.Bot;
 using Telegram.Bot.Exceptions;
 using Telegram.Bot.Polling;
@@ -12,12 +14,16 @@ namespace MultiDownloader.TelegramHost.Processor
     {
         private readonly ITelegramBotClient _botClient;
         private readonly ILogger _logger;
+        private readonly IUserRepository _userRepository;
+        private readonly IJobRepository _jobRepository;
         private CancellationTokenSource _cts;
 
-        public TelegramBotHostedService(ITelegramBotClient botClient, ILogger logger)
+        public TelegramBotHostedService(ITelegramBotClient botClient, ILogger logger, IJobRepository jobRepository, IUserRepository userRepository)
         {
             _botClient = botClient;
             _logger = logger;
+            _userRepository = userRepository;
+            _jobRepository = jobRepository;
         }
 
         public Task StartAsync(CancellationToken cancellationToken)
@@ -53,7 +59,9 @@ namespace MultiDownloader.TelegramHost.Processor
 
             _logger.Information("Received a message from {ChatId}: {MessageText}", chatId, messageText);
 
-            await botClient.SendTextMessageAsync(chatId, "You said: " + messageText, cancellationToken: cancellationToken);
+            string responce = JsonSerializer.Serialize(await _userRepository.GetAllUsersAsync());
+
+            await botClient.SendTextMessageAsync(chatId, responce, cancellationToken: cancellationToken);
         }
 
         private Task HandleErrorAsync(ITelegramBotClient botClient, Exception exception, CancellationToken cancellationToken)

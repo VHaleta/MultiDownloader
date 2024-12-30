@@ -2,6 +2,7 @@
 {
     public enum FileType
     {
-        Opus
+        Opus,
+        Unknown
     }
 }

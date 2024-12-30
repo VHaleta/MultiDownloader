@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Serilog;
 using Microsoft.AspNetCore.Hosting;
 using MultiDownloader.TelegramHost.Processor;
+using MultiDownloader.TelegramHost.Host;
 
 Log.Logger = new LoggerConfiguration()
                 .ReadFrom.Configuration(new ConfigurationBuilder()
@@ -29,6 +30,9 @@ try
                 new TelegramBotClient(context.Configuration["TelegramBot:Token"] ?? ""));
 
             services.AddHostedService<TelegramBotHostedService>();
+
+            services.AddGrpcConfiguration(context.Configuration["GrpcServerAddress"] ?? "");
+            services.AddRepositories();
         })
         .UseSerilog((context, services, configuration) =>
         {

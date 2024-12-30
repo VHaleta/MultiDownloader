@@ -1,4 +1,6 @@
+using Microsoft.EntityFrameworkCore;
 using MultiDownloader.DatabaseApi.Business.Repositories;
+using MultiDownloader.DatabaseApi.Database;
 using MultiDownloader.DatabaseApi.Database.Repositories;
 using MultiDownloader.DatabaseApi.GrpcHost.Services;
 
@@ -10,6 +12,9 @@ builder.Services.AddGrpc();
 builder.Services
     .AddScoped<IJobRepository, JobRepository>()
     .AddScoped<IUserRepository, UserRepository>();
+
+builder.Services.AddDbContext<MultiDownloaderContext>(options =>
+                options.UseSqlServer(builder.Configuration["ConnectionStrings:MultiDownloaderDb"]));
 
 var app = builder.Build();
 
