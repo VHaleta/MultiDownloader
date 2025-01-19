@@ -17,4 +17,9 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\MultiDownloader.DownloaderApi.DownloaderProvider\MultiDownloader.DownloaderApi.DownloaderProvider.csproj" />
+    <ProjectReference Include="..\MultiDownloader.DownloaderApi.Downloader\MultiDownloader.DownloaderApi.Downloader.csproj" />
+  </ItemGroup>
+
 </Project>

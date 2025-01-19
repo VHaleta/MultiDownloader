@@ -1,7 +1,9 @@
 ﻿namespace MultiDownloader.DownloaderApi.Host.Models
 {
-    public class FormatsRequestPayload
+    public class FileDownloadRequestPayload
     {
         public string URL { get; set; }
+
+        public string Format { get; set; }
     }
 }

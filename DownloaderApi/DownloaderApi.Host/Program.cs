@@ -1,4 +1,5 @@
 
+using MultiDownloader.DownloaderApi.Host;
 using Serilog;
 
 Log.Logger = new LoggerConfiguration()
@@ -22,7 +23,21 @@ try
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
 
+    //Add services
+    builder.Services.AddDownloaderProcessor();
+
+    builder.WebHost.ConfigureKestrel(options =>
+    {
+        options.ListenAnyIP(5091); // For HTTP
+                                   // If you need HTTPS, you'll need to supply a certificate
+                                   // options.ListenAnyIP(7063, listenOptions => listenOptions.UseHttps("path/to/cert.pfx", "password"));
+    });
+
     var app = builder.Build();
+
+    var addresses = app.Urls;
+    Log.Information("Application is running on the following URLs: {Urls}", string.Join(", ", addresses));
+    Log.Information("Application environment: {Environment}", app.Environment.EnvironmentName);
 
     // Configure the HTTP request pipeline.
     if (app.Environment.IsDevelopment())

@@ -1,4 +1,5 @@
-﻿using MultiDownloader.DownloaderApi.Host.Interfaces;
+﻿using MultiDownloader.DownloaderApi.Downloader;
+using MultiDownloader.DownloaderApi.DownloaderProvider;
 
 namespace MultiDownloader.DownloaderApi.Host
 {
@@ -6,7 +7,7 @@ namespace MultiDownloader.DownloaderApi.Host
     {
         public static IServiceCollection AddDownloaderProcessor(this IServiceCollection services)
         {
-            //services.AddScoped<IDownloaderProcessor, >
+            services.AddScoped<IDownloader, Downloader.Downloader>();
             return services;
         }
     }

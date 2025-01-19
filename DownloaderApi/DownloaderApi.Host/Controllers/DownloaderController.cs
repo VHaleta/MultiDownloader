@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MultiDownloader.DownloaderApi.Host.Interfaces;
+using MultiDownloader.DownloaderApi.DownloaderProvider;
+using MultiDownloader.DownloaderApi.DownloaderProvider.Models;
 using MultiDownloader.DownloaderApi.Host.Models;
+using System.Text.Json;
 
 namespace MultiDownloader.DownloaderApi.Host.Controllers
 {
@@ -8,50 +10,43 @@ namespace MultiDownloader.DownloaderApi.Host.Controllers
     [Route("api/downloader")]
     public class DownloaderController : ControllerBase
     {
-        private readonly ILogger<DownloaderController> _logger;
-        private readonly IDownloaderProcessor _downloaderProcessor;
+        private readonly Serilog.ILogger _logger;
+        private readonly IDownloader _downloaderProcessor;
 
-        public DownloaderController(ILogger<DownloaderController> logger, IDownloaderProcessor downloaderProcessor)
+        public DownloaderController(
+            Serilog.ILogger logger,
+            IDownloader downloaderProcessor)
         {
             _logger = logger;
             _downloaderProcessor = downloaderProcessor;
         }
 
         [HttpGet("formats")]
-        public async Task<IActionResult> GetAvailableFormats([FromBody] FormatsRequestPayload requestPayload)
+        public async Task<string> GetAvailableFormats([FromQuery] string url)
         {
-            _logger.LogInformation("Begin getting available formats for URL: " + requestPayload.URL);
+            _logger.Information("Begin getting available formats for URL: " + url);
 
-            List<string> formats = (await _downloaderProcessor
-                .GetAvailableFormatsAsync(requestPayload))
-                .ToList();
+            List<FormatInfo> formats = (await _downloaderProcessor
+                .GetAvailableFormatsAsync(url))
+            .ToList();
 
-            return Ok(new FormatsResponcePayload() { Formats = formats });
+            string json = JsonSerializer.Serialize(new FormatsResponcePayload() { Formats = formats });
+            _logger.Information($"{formats.Count}");
+
+            return json;
         }
 
         [HttpPost("download")]
-        public async Task<IActionResult> DownloadFile([FromBody] FileRequest request)
+        public async Task<IActionResult> DownloadFile([FromBody] FileDownloadRequestPayload request)
         {
-            _logger.LogInformation("Запрос на скачивание файла для формата: {Format}", request.Format);
+            _logger.Information("Begin downloading file for URL: " + request.URL);
 
-            // Здесь мог бы быть код, который генерирует файл на основе запроса
-            // В этом примере возвращается статический текстовый файл
+            FileData fileData = await _downloaderProcessor
+                .DownloadFileAsync(request.URL, request.Format);
 
-            var content = "Это содержимое файла.";
-            var fileName = "example.txt";
-
-            var filePath = Path.GetTempFileName();
-            await System.IO.File.WriteAllTextAsync(filePath, content);
-
-            var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
-            var result = File(stream, "application/octet-stream", fileName);
-
-            return result;
+            return Ok(
+                new FileDownloadResponcePayload()
+                { FileName = fileData.Name, FilePath = fileData.Path });
         }
-    }
-    public class FileRequest
-    {
-        public string Format { get; set; }
-        public Dictionary<string, string> AdditionalFields { get; set; }
     }
 }

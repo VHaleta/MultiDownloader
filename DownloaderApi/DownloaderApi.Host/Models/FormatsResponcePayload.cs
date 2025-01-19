@@ -1,7 +1,9 @@
-﻿namespace MultiDownloader.DownloaderApi.Host.Models
+﻿using MultiDownloader.DownloaderApi.DownloaderProvider.Models;
+
+namespace MultiDownloader.DownloaderApi.Host.Models
 {
     public class FormatsResponcePayload
     {
-        public IEnumerable<string> Formats { get; set; }
+        public IEnumerable<FormatInfo> Formats { get; set; }
     }
 }
