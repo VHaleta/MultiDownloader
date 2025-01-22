@@ -1,17 +1,30 @@
 ﻿using MultiDownloader.DownloaderApi.Downloader.Executors;
 using MultiDownloader.DownloaderApi.Downloader.Models;
 using MultiDownloader.DownloaderApi.DownloaderProvider.Models;
+using Serilog;
 using System.Text.RegularExpressions;
 
 namespace MultiDownloader.DownloaderApi.Downloader.Providers
 {
-    public class YoutubeDataProvider : IDataProvider
+    public class YoutubeDataProviderYTDLP : IDataProvider
     {
-        private readonly string _getFormatsCommand = "yt-dlp --list-formats \"{0}\"";
+        private readonly ILogger _logger;
+
+        private readonly string _getFormatsCommand =
+            "yt-dlp --list-formats --flat-playlist --skip-download " +
+            "--extractor-args \"youtube:player-client=-ios\" " +
+            "\"{0}\"";
+        // --cache-dir ~/.cache/yt-dlp
+
+        public YoutubeDataProviderYTDLP(ILogger logger)
+        {
+            _logger = logger;
+        }
 
         public IEnumerable<FormatInfo> GetAvailableFormats(string url)
         {
             string cmdResult = LinuxCmdExecutor.RunCommand(String.Format(_getFormatsCommand, url));
+            //Log.Information(cmdResult);
             List<YoutubeFormatInfo> ytFormats = ParseCmdOutput(cmdResult);
             List<FormatInfo> formats = ytFormats.Select(x => x.MapToFormatInfo()).ToList();
 

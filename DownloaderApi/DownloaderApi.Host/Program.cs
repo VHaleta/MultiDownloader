@@ -35,8 +35,6 @@ try
 
     var app = builder.Build();
 
-    var addresses = app.Urls;
-    Log.Information("Application is running on the following URLs: {Urls}", string.Join(", ", addresses));
     Log.Information("Application environment: {Environment}", app.Environment.EnvironmentName);
 
     // Configure the HTTP request pipeline.

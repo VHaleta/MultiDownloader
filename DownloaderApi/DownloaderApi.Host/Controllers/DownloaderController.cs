@@ -31,7 +31,6 @@ namespace MultiDownloader.DownloaderApi.Host.Controllers
             .ToList();
 
             string json = JsonSerializer.Serialize(new FormatsResponcePayload() { Formats = formats });
-            _logger.Information($"{formats.Count}");
 
             return json;
         }

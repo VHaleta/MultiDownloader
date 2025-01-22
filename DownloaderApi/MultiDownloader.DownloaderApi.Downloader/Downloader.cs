@@ -2,17 +2,18 @@
 using MultiDownloader.DownloaderApi.Downloader.Providers;
 using MultiDownloader.DownloaderApi.DownloaderProvider;
 using MultiDownloader.DownloaderApi.DownloaderProvider.Models;
+using Serilog;
 using System.Text.RegularExpressions;
 
 namespace MultiDownloader.DownloaderApi.Downloader
 {
     public class Downloader : IDownloader
     {
-        private readonly YoutubeDataProvider _youtubeDataProvider;
+        private readonly YoutubeDataProviderYTDLP _youtubeDataProvider;
 
-        public Downloader()
+        public Downloader(ILogger logger)
         {
-            _youtubeDataProvider = new YoutubeDataProvider();
+            _youtubeDataProvider = new YoutubeDataProviderYTDLP(logger);
         }
 
         public Task<FileData> DownloadFileAsync(string url, string format)
