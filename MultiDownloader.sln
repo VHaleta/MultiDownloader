@@ -3,12 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34511.84
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DatabaseApi", "DatabaseApi", "{45C15285-D6AE-4ADD-AC3F-93CBCAB10DEE}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MultiDownloader.DatabaseApi.Database", "DatabaseApi\MultiDownloader.DatabaseApi.Database\MultiDownloader.DatabaseApi.Database.csproj", "{09421C48-01AE-4D6B-A0B9-64B4B70D2C6E}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MultiDownloader.DatabaseApi.Host", "DatabaseApi\MultiDownloader.DatabaseApi.Host\MultiDownloader.DatabaseApi.Host.csproj", "{211638D5-BC64-4FAB-9985-05DCEEC748E2}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TelegramHost", "TelegramHost", "{0FFC9CAE-4F8C-40E0-9AD6-5B376D0D6CD6}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MultiDownloader.TelegramHost.Models", "TelegramHost\MultiDownloader.TelegramHost.Models\MultiDownloader.TelegramHost.Models.csproj", "{CC468E2A-0EDD-4103-B6DD-4CA496F08110}"
@@ -17,21 +11,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MultiDownloader.TelegramHos
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MultiDownloader.TelegramHost.Host", "TelegramHost\MultiDownloader.TelegramHost.Host\MultiDownloader.TelegramHost.Host.csproj", "{F4764102-3397-42A1-858E-FE07BBF9A096}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MultiDownloader.DatabaseApi.Business", "DatabaseApi\MultiDownloader.DatabaseApi.Business\MultiDownloader.DatabaseApi.Business.csproj", "{229699F6-7648-4E13-92B9-CE0EA4759892}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MultiDownloader.DatabaseApi.Models", "DatabaseApi\MultiDownloader.DatabaseApi.Models\MultiDownloader.DatabaseApi.Models.csproj", "{421FC16B-5F4C-4E02-8FEF-55EC653F379A}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MultiDownloader.DatabaseApi.GrpcHost", "DatabaseApi\MultiDownloader.DatabaseApi.GrpcHost\MultiDownloader.DatabaseApi.GrpcHost.csproj", "{6295513A-A600-428E-82BF-20854D86C193}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MultiDownloader.TelegramHost.Database", "TelegramHost\MultiDownloader.TelegramHost.Database\MultiDownloader.TelegramHost.Database.csproj", "{EEB394A1-5C5C-4953-A531-3A18A5DFD766}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DownloaderApi", "DownloaderApi", "{AF3B602E-A589-45D8-899F-C1F6F58FEBAE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiDownloader.DownloaderApi.Host", "DownloaderApi\DownloaderApi.Host\MultiDownloader.DownloaderApi.Host.csproj", "{5C1334BF-3969-4F91-B4D8-5B54FEB1DC6F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MultiDownloader.DownloaderApi.Host", "DownloaderApi\DownloaderApi.Host\MultiDownloader.DownloaderApi.Host.csproj", "{5C1334BF-3969-4F91-B4D8-5B54FEB1DC6F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiDownloader.DownloaderApi.Downloader", "DownloaderApi\MultiDownloader.DownloaderApi.Downloader\MultiDownloader.DownloaderApi.Downloader.csproj", "{2E7761EC-6444-4839-8503-FFFFA1E37CA4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MultiDownloader.DownloaderApi.Downloader", "DownloaderApi\MultiDownloader.DownloaderApi.Downloader\MultiDownloader.DownloaderApi.Downloader.csproj", "{2E7761EC-6444-4839-8503-FFFFA1E37CA4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiDownloader.DownloaderApi.DownloaderProvider", "MultiDownloader.DownloaderApi.DownloaderProvider\MultiDownloader.DownloaderApi.DownloaderProvider.csproj", "{84E983EA-1460-4667-A45E-CBE73BEA240F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MultiDownloader.DownloaderApi.DownloaderProvider", "DownloaderApi\MultiDownloader.DownloaderApi.DownloaderProvider\MultiDownloader.DownloaderApi.DownloaderProvider.csproj", "{54E0B5CA-8DA3-4828-8F6D-91644EE608C0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,14 +27,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{09421C48-01AE-4D6B-A0B9-64B4B70D2C6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{09421C48-01AE-4D6B-A0B9-64B4B70D2C6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{09421C48-01AE-4D6B-A0B9-64B4B70D2C6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{09421C48-01AE-4D6B-A0B9-64B4B70D2C6E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{211638D5-BC64-4FAB-9985-05DCEEC748E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{211638D5-BC64-4FAB-9985-05DCEEC748E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{211638D5-BC64-4FAB-9985-05DCEEC748E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{211638D5-BC64-4FAB-9985-05DCEEC748E2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CC468E2A-0EDD-4103-B6DD-4CA496F08110}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CC468E2A-0EDD-4103-B6DD-4CA496F08110}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CC468E2A-0EDD-4103-B6DD-4CA496F08110}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -59,18 +39,6 @@ Global
 		{F4764102-3397-42A1-858E-FE07BBF9A096}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F4764102-3397-42A1-858E-FE07BBF9A096}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F4764102-3397-42A1-858E-FE07BBF9A096}.Release|Any CPU.Build.0 = Release|Any CPU
-		{229699F6-7648-4E13-92B9-CE0EA4759892}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{229699F6-7648-4E13-92B9-CE0EA4759892}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{229699F6-7648-4E13-92B9-CE0EA4759892}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{229699F6-7648-4E13-92B9-CE0EA4759892}.Release|Any CPU.Build.0 = Release|Any CPU
-		{421FC16B-5F4C-4E02-8FEF-55EC653F379A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{421FC16B-5F4C-4E02-8FEF-55EC653F379A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{421FC16B-5F4C-4E02-8FEF-55EC653F379A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{421FC16B-5F4C-4E02-8FEF-55EC653F379A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6295513A-A600-428E-82BF-20854D86C193}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6295513A-A600-428E-82BF-20854D86C193}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6295513A-A600-428E-82BF-20854D86C193}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6295513A-A600-428E-82BF-20854D86C193}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EEB394A1-5C5C-4953-A531-3A18A5DFD766}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{EEB394A1-5C5C-4953-A531-3A18A5DFD766}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EEB394A1-5C5C-4953-A531-3A18A5DFD766}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -83,27 +51,22 @@ Global
 		{2E7761EC-6444-4839-8503-FFFFA1E37CA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2E7761EC-6444-4839-8503-FFFFA1E37CA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2E7761EC-6444-4839-8503-FFFFA1E37CA4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{84E983EA-1460-4667-A45E-CBE73BEA240F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{84E983EA-1460-4667-A45E-CBE73BEA240F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{84E983EA-1460-4667-A45E-CBE73BEA240F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{84E983EA-1460-4667-A45E-CBE73BEA240F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54E0B5CA-8DA3-4828-8F6D-91644EE608C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54E0B5CA-8DA3-4828-8F6D-91644EE608C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54E0B5CA-8DA3-4828-8F6D-91644EE608C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54E0B5CA-8DA3-4828-8F6D-91644EE608C0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{09421C48-01AE-4D6B-A0B9-64B4B70D2C6E} = {45C15285-D6AE-4ADD-AC3F-93CBCAB10DEE}
-		{211638D5-BC64-4FAB-9985-05DCEEC748E2} = {45C15285-D6AE-4ADD-AC3F-93CBCAB10DEE}
 		{CC468E2A-0EDD-4103-B6DD-4CA496F08110} = {0FFC9CAE-4F8C-40E0-9AD6-5B376D0D6CD6}
 		{5547AFBB-ABF0-4DBD-A5AD-5D9FCB795A9A} = {0FFC9CAE-4F8C-40E0-9AD6-5B376D0D6CD6}
 		{F4764102-3397-42A1-858E-FE07BBF9A096} = {0FFC9CAE-4F8C-40E0-9AD6-5B376D0D6CD6}
-		{229699F6-7648-4E13-92B9-CE0EA4759892} = {45C15285-D6AE-4ADD-AC3F-93CBCAB10DEE}
-		{421FC16B-5F4C-4E02-8FEF-55EC653F379A} = {45C15285-D6AE-4ADD-AC3F-93CBCAB10DEE}
-		{6295513A-A600-428E-82BF-20854D86C193} = {45C15285-D6AE-4ADD-AC3F-93CBCAB10DEE}
 		{EEB394A1-5C5C-4953-A531-3A18A5DFD766} = {0FFC9CAE-4F8C-40E0-9AD6-5B376D0D6CD6}
 		{5C1334BF-3969-4F91-B4D8-5B54FEB1DC6F} = {AF3B602E-A589-45D8-899F-C1F6F58FEBAE}
 		{2E7761EC-6444-4839-8503-FFFFA1E37CA4} = {AF3B602E-A589-45D8-899F-C1F6F58FEBAE}
-		{84E983EA-1460-4667-A45E-CBE73BEA240F} = {AF3B602E-A589-45D8-899F-C1F6F58FEBAE}
+		{54E0B5CA-8DA3-4828-8F6D-91644EE608C0} = {AF3B602E-A589-45D8-899F-C1F6F58FEBAE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A08834C6-3ED3-44A3-B6EF-AEBA65A2DF4A}

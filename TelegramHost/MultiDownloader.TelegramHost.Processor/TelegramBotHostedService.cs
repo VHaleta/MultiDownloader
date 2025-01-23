@@ -15,15 +15,13 @@ namespace MultiDownloader.TelegramHost.Processor
         private readonly ITelegramBotClient _botClient;
         private readonly ILogger _logger;
         private readonly IUserRepository _userRepository;
-        private readonly IJobRepository _jobRepository;
         private CancellationTokenSource _cts;
 
-        public TelegramBotHostedService(ITelegramBotClient botClient, ILogger logger, IJobRepository jobRepository, IUserRepository userRepository)
+        public TelegramBotHostedService(ITelegramBotClient botClient, ILogger logger, IUserRepository userRepository)
         {
             _botClient = botClient;
             _logger = logger;
             _userRepository = userRepository;
-            _jobRepository = jobRepository;
         }
 
         public Task StartAsync(CancellationToken cancellationToken)
@@ -60,8 +58,8 @@ namespace MultiDownloader.TelegramHost.Processor
             _logger.Information("Received a message from {ChatId}: {MessageText}", chatId, messageText);
 
             string responce = JsonSerializer.Serialize(await _userRepository.GetAllUsersAsync());
-
-            await botClient.SendTextMessageAsync(chatId, responce, cancellationToken: cancellationToken);
+            
+            await botClient.SendMessage(chatId, responce, cancellationToken: cancellationToken);
         }
 
         private Task HandleErrorAsync(ITelegramBotClient botClient, Exception exception, CancellationToken cancellationToken)

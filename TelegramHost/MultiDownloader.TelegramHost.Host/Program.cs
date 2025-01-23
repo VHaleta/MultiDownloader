@@ -18,7 +18,7 @@ try
 {
     Log.Information("Starting up the service");
 
-    var host = Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder(args)
+    var host = Host.CreateDefaultBuilder(args)
         .ConfigureAppConfiguration((context, config) =>
         {
             config.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
@@ -31,8 +31,8 @@ try
 
             services.AddHostedService<TelegramBotHostedService>();
 
-            services.AddGrpcConfiguration(context.Configuration["GrpcServerAddress"] ?? "");
             services.AddRepositories();
+            services.AddDbConfiguration(context.Configuration["ConnectionStrings:MultiDownloaderDb"]);
         })
         .UseSerilog((context, services, configuration) =>
         {
