@@ -6,7 +6,9 @@ using Serilog;
 using Microsoft.AspNetCore.Hosting;
 using MultiDownloader.TelegramHost.Processor;
 using MultiDownloader.TelegramHost.Host;
+using System.Text;
 
+Console.OutputEncoding = Encoding.UTF8;
 Log.Logger = new LoggerConfiguration()
                 .ReadFrom.Configuration(new ConfigurationBuilder()
                     .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)

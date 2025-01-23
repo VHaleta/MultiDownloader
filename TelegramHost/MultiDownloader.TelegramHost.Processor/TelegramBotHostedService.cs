@@ -49,8 +49,16 @@ namespace MultiDownloader.TelegramHost.Processor
 
         private async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
         {
-            if (update.Type != UpdateType.Message || update.Message!.Type != MessageType.Text)
-                return;
+            Task handle;
+            switch (update.Type)
+            {
+                case UpdateType.Message:
+                    _logger.Information($"Reseived update {update.Type}: {update.Message.Text}");
+                    handle = HandleMessageAsync(update.Message);
+                    break;
+                default:
+                    return;
+            }
 
             var chatId = update.Message.Chat.Id;
             var messageText = update.Message.Text;
@@ -72,6 +80,12 @@ namespace MultiDownloader.TelegramHost.Processor
 
             _logger.Error("Error occurred: {ErrorMessage}", errorMessage);
             return Task.CompletedTask;
+        }
+
+        private async Task HandleMessageAsync(Message message)
+        {
+            Console.WriteLine($"Received a message from {message.From.Username}: {message.Text}");
+            await _botClient.SendTextMessageAsync(message.Chat.Id, $"You said: {message.Text}");
         }
     }
 }

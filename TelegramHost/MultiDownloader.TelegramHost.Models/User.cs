@@ -7,7 +7,6 @@
         public string FirstName { get; set; } = String.Empty;
         public string LastName { get; set; } = String.Empty;
         public DateTime LastActivityDate { get; set; }
-
-        public List<int> JobIds { get; set; } = new List<int>();
+        public bool IsAdmin { get; set; } = false;
     }
 }

@@ -1,17 +1,19 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MultiDownloader.TelegramHost.Models;
 using MultiDownloader.TelegramHost.TgBotProcessor.Repositories;
+using Serilog;
 
 namespace MultiDownloader.TelegramHost.Database.Repositories
 {
     public class UserRepository : IUserRepository
     {
         private readonly MultiDownloaderContext _context;
-        private readonly SemaphoreSlim _semaphore = new SemaphoreSlim(1, 1);
+        private readonly ILogger _logger;
 
-        public UserRepository(MultiDownloaderContext context)
+        public UserRepository(MultiDownloaderContext context, ILogger logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         public async Task<IEnumerable<User>> GetAllUsersAsync() =>
@@ -28,6 +30,7 @@ namespace MultiDownloader.TelegramHost.Database.Repositories
         {
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
+            _logger.Information("New user {0} {1} ({3}) has been added", user.FirstName, user.LastName, user.Username);
         }
 
         public async Task UpdateUserAsync(User user)

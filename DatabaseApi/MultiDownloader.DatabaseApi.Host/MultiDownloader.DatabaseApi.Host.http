@@ -1,6 +1,0 @@
-@MultiDownloader.DatabaseApi.Host_HostAddress = http://localhost:5223
-
-GET {{MultiDownloader.DatabaseApi.Host_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
