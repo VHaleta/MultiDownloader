@@ -35,6 +35,7 @@ try
 
             services.AddRepositories();
             services.AddDbConfiguration(context.Configuration["ConnectionStrings:MultiDownloaderDb"]);
+            services.AddBotProcessorServices();
         })
         .UseSerilog((context, services, configuration) =>
         {

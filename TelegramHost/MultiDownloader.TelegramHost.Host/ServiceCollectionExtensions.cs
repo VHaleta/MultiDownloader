@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using MultiDownloader.TelegramHost.Database;
 using MultiDownloader.TelegramHost.Database.Repositories;
 using MultiDownloader.TelegramHost.TgBotProcessor.Repositories;
+using MultiDownloader.TelegramHost.TgBotProcessor.Services;
 
 namespace MultiDownloader.TelegramHost.Host
 {
@@ -19,6 +20,12 @@ namespace MultiDownloader.TelegramHost.Host
         {
             services.AddScoped<IUserRepository, UserRepository>();
 
+            return services;
+        }
+
+        public static IServiceCollection AddBotProcessorServices(this IServiceCollection services)
+        {
+            services.AddScoped<UserService>();
             return services;
         }
     }

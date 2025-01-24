@@ -1,5 +1,7 @@
 ﻿using Microsoft.Extensions.Hosting;
+using MultiDownloader.TelegramHost.Models;
 using MultiDownloader.TelegramHost.TgBotProcessor.Repositories;
+using MultiDownloader.TelegramHost.TgBotProcessor.Services;
 using Serilog;
 using System.Text.Json;
 using Telegram.Bot;
@@ -14,14 +16,14 @@ namespace MultiDownloader.TelegramHost.Processor
     {
         private readonly ITelegramBotClient _botClient;
         private readonly ILogger _logger;
-        private readonly IUserRepository _userRepository;
         private CancellationTokenSource _cts;
+        private readonly UserService _userService;
 
-        public TelegramBotHostedService(ITelegramBotClient botClient, ILogger logger, IUserRepository userRepository)
+        public TelegramBotHostedService(ITelegramBotClient botClient, ILogger logger, UserService userService)
         {
             _botClient = botClient;
             _logger = logger;
-            _userRepository = userRepository;
+            _userService = userService;
         }
 
         public Task StartAsync(CancellationToken cancellationToken)
@@ -49,25 +51,22 @@ namespace MultiDownloader.TelegramHost.Processor
 
         private async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
         {
+            Models.User user = _userService.RetrieveUserFromUpdate(update);
+            await _userService.EnsureUserExistsAndIsUpdatedAsync(user);
+
             Task handle;
             switch (update.Type)
             {
                 case UpdateType.Message:
-                    _logger.Information($"Reseived update {update.Type}: {update.Message.Text}");
-                    handle = HandleMessageAsync(update.Message);
+                    _logger.Information($"Reseived update {update.Type}: {update.Message.Text} from {update.Message.Chat.Id}");
+                    handle = HandleMessageAsync(update, user);
                     break;
                 default:
+                    _logger.Information($"Reseived unhandled update {update.Type} from {update.Message.Chat.Id}");
                     return;
             }
 
-            var chatId = update.Message.Chat.Id;
-            var messageText = update.Message.Text;
-
-            _logger.Information("Received a message from {ChatId}: {MessageText}", chatId, messageText);
-
-            string responce = JsonSerializer.Serialize(await _userRepository.GetAllUsersAsync());
-            
-            await botClient.SendMessage(chatId, responce, cancellationToken: cancellationToken);
+            await handle;
         }
 
         private Task HandleErrorAsync(ITelegramBotClient botClient, Exception exception, CancellationToken cancellationToken)
@@ -82,10 +81,8 @@ namespace MultiDownloader.TelegramHost.Processor
             return Task.CompletedTask;
         }
 
-        private async Task HandleMessageAsync(Message message)
+        private async Task HandleMessageAsync(Update update, Models.User user)
         {
-            Console.WriteLine($"Received a message from {message.From.Username}: {message.Text}");
-            await _botClient.SendTextMessageAsync(message.Chat.Id, $"You said: {message.Text}");
         }
     }
 }

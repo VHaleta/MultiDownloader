@@ -16,7 +16,7 @@ namespace MultiDownloader.TelegramHost.Database
                         Username = "User1",
                         FirstName = "FirstName1",
                         LastName = "LastName1",
-                        LastActivityDate = DateTime.Now
+                        LastActivityDate = DateTime.UtcNow.Date
                     },
                     new User()
                     {
@@ -24,7 +24,7 @@ namespace MultiDownloader.TelegramHost.Database
                         Username = "User2",
                         FirstName = "FirstName2",
                         LastName = "LastName2",
-                        LastActivityDate = DateTime.Now
+                        LastActivityDate = DateTime.UtcNow.Date
                     },
                     new User()
                     {
@@ -32,7 +32,7 @@ namespace MultiDownloader.TelegramHost.Database
                         Username = "User3",
                         FirstName = "FirstName3",
                         LastName = "LastName3",
-                        LastActivityDate = DateTime.Now
+                        LastActivityDate = DateTime.UtcNow.Date
                     },
                 };
                 context.Users.AddRange(users);
