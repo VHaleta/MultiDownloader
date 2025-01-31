@@ -22,4 +22,10 @@
     <ProjectReference Include="..\MultiDownloader.DownloaderApi.Downloader\MultiDownloader.DownloaderApi.Downloader.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>

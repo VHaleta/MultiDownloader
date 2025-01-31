@@ -1,9 +1,6 @@
 ﻿using Microsoft.Extensions.Hosting;
-using MultiDownloader.TelegramHost.Models;
-using MultiDownloader.TelegramHost.TgBotProcessor.Repositories;
 using MultiDownloader.TelegramHost.TgBotProcessor.Services;
 using Serilog;
-using System.Text.Json;
 using Telegram.Bot;
 using Telegram.Bot.Exceptions;
 using Telegram.Bot.Polling;
@@ -59,7 +56,7 @@ namespace MultiDownloader.TelegramHost.Processor
             {
                 case UpdateType.Message:
                     _logger.Information($"Reseived update {update.Type}: {update.Message.Text} from {update.Message.Chat.Id}");
-                    handle = HandleMessageAsync(update, user);
+                    handle = HandleMessageAsync(botClient, update, user);
                     break;
                 default:
                     _logger.Information($"Reseived unhandled update {update.Type} from {update.Message.Chat.Id}");
@@ -81,8 +78,9 @@ namespace MultiDownloader.TelegramHost.Processor
             return Task.CompletedTask;
         }
 
-        private async Task HandleMessageAsync(Update update, Models.User user)
+        private async Task HandleMessageAsync(ITelegramBotClient botClient, Update update, Models.User user)
         {
+            await botClient.SendMessage(user.ChatId, "1");
         }
     }
 }
