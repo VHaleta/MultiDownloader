@@ -10,7 +10,7 @@ namespace MultiDownloader.TelegramHost.Database
         {
             var configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json")
+                .AddJsonFile("appsettings.tghost.json")
                 .Build();
 
             var builder = new DbContextOptionsBuilder<MultiDownloaderContext>();
