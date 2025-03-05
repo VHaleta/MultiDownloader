@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Hosting;
 using MultiDownloader.TelegramHost.TgBotProcessor.Services;
 using Serilog;
+using System;
 using Telegram.Bot;
 using Telegram.Bot.Exceptions;
 using Telegram.Bot.Polling;
@@ -15,12 +16,18 @@ namespace MultiDownloader.TelegramHost.Processor
         private readonly ILogger _logger;
         private CancellationTokenSource _cts;
         private readonly UserService _userService;
+        private readonly DownloaderService _downloaderService;
 
-        public TelegramBotHostedService(ITelegramBotClient botClient, ILogger logger, UserService userService)
+        public TelegramBotHostedService(
+            ITelegramBotClient botClient,
+            ILogger logger,
+            UserService userService,
+            DownloaderService downloaderService)
         {
             _botClient = botClient;
             _logger = logger;
             _userService = userService;
+            _downloaderService = downloaderService;
         }
 
         public Task StartAsync(CancellationToken cancellationToken)
@@ -80,7 +87,12 @@ namespace MultiDownloader.TelegramHost.Processor
 
         private async Task HandleMessageAsync(ITelegramBotClient botClient, Update update, Models.User user)
         {
-            await botClient.SendMessage(user.ChatId, "1");
+            if(Uri.TryCreate(update.Message.Text, UriKind.RelativeOrAbsolute, out Uri? uriResult)
+                && (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps))
+            {
+                var res = await _downloaderService.GetAvailableFormats($"http://localhost:5091/api/downloader/formats?url={uriResult}");
+                await botClient.SendMessage(user.ChatId, String.Join(" | ", res));
+            }
         }
     }
 }

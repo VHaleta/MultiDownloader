@@ -3,6 +3,7 @@
     public enum FileType
     {
         Opus,
+        Mp3,
         Unknown
     }
 }

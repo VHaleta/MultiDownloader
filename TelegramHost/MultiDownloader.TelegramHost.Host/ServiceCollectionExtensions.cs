@@ -26,6 +26,7 @@ namespace MultiDownloader.TelegramHost.Host
         public static IServiceCollection AddBotProcessorServices(this IServiceCollection services)
         {
             services.AddScoped<UserService>();
+            services.AddScoped<DownloaderService>();
             return services;
         }
     }

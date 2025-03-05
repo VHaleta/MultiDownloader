@@ -50,5 +50,6 @@ catch (Exception ex)
 }
 finally
 {
+    Thread.Sleep(-1);
     Log.CloseAndFlush();
 }

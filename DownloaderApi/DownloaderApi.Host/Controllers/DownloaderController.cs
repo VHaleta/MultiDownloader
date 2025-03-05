@@ -26,13 +26,22 @@ namespace MultiDownloader.DownloaderApi.Host.Controllers
         {
             _logger.Information("Begin getting available formats for URL: " + url);
 
-            List<FormatInfo> formats = (await _downloaderProcessor
-                .GetAvailableFormatsAsync(url))
-            .ToList();
+            try
+            {
+                List<FormatInfo> formats = (await _downloaderProcessor
+                    .GetAvailableFormatsAsync(url))
+                .ToList();
 
-            string json = JsonSerializer.Serialize(new FormatsResponcePayload() { Formats = formats });
+                string json = JsonSerializer.Serialize(new FormatsResponcePayload() { Formats = formats });
 
-            return json;
+                return json;
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex.ToString());
+                string json = JsonSerializer.Serialize(new FormatsResponcePayload() { Error = "Error" });
+                return json;
+            }
         }
 
         [HttpPost("download")]
