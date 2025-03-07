@@ -15,17 +15,38 @@ namespace MultiDownloader.TelegramHost.TgBotProcessor.Services
             _logger = logger;
         }
 
-        public async Task<List<string>> GetAvailableFormats(string url)
+        public async Task<List<FormatInfo>> GetAvailableFormats(Uri uri)
         {
-            var responce = await SendGetRequest<FormatsResponcePayload>(url);
+            var responce = await SendGetRequest<FormatsResponcePayload>(
+                String.Format("http://localhost:5091/api/downloader/formats?url={0}", uri.ToString()));
             if(responce.Error != null)
             {
                 throw new Exception("Http responce error: " + responce.Error);
             }
             else
             {
-                _logger.Information(String.Join(" | ", responce.Formats.Select(x => x.Id)));
-                return responce.Formats.Select(x => x.Id).ToList();
+                _logger.Information(String.Join(" | ", responce.Formats.Select(x => String.Format($"{x.Id} {x.Extension} {x.Resolution}"))));
+                return responce.Formats.ToList();
+            }
+        }
+
+        public async Task<FileData> DownloadAudioFile(Uri uri)
+        {
+            var responce = await SendPostRequest<FileDownloadResponcePayload, FileDownloadRequestPaylaod>(
+                String.Format("http://localhost:5091/api/downloader/download"),
+                new FileDownloadRequestPaylaod()
+                {
+                    URL = uri.ToString(),
+                    Format = "mp3",
+                    Resolution = "audio"
+                });
+            if (responce.Error != null)
+            {
+                throw new Exception("Http responce error: " + responce.Error);
+            }
+            else
+            {
+                return responce.FileData;
             }
         }
 
@@ -40,30 +61,17 @@ namespace MultiDownloader.TelegramHost.TgBotProcessor.Services
                 ?? throw new Exception("Json deserialization error for: " + responseBody);
         }
 
-        private async Task SendPostRequest(string url)
+        private async Task<ResponseModel> SendPostRequest<ResponseModel, RequestPayload>(string url, RequestPayload requestPayload)
         {
-            var postData = new
-            {
-                title = "foo",
-                body = "bar",
-                userId = 1
-            };
-
-            var json = System.Text.Json.JsonSerializer.Serialize(postData);
+            var json = JsonSerializer.Serialize(requestPayload);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            try
-            {
-                HttpResponseMessage response = await client.PostAsync(url, content);
-                response.EnsureSuccessStatusCode();
+            HttpResponseMessage response = await client.PostAsync(url, content);
+            response.EnsureSuccessStatusCode();
 
-                string responseBody = await response.Content.ReadAsStringAsync();
-                Console.WriteLine("POST Response:\n" + responseBody);
-            }
-            catch (HttpRequestException e)
-            {
-                Console.WriteLine($"POST Request error: {e.Message}");
-            }
+            string responseBody = await response.Content.ReadAsStringAsync();
+            return JsonSerializer.Deserialize<ResponseModel>(responseBody)
+                ?? throw new Exception("Json deserialization error for: " + responseBody);
         }
     }
 }

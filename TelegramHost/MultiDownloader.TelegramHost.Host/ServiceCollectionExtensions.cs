@@ -27,6 +27,7 @@ namespace MultiDownloader.TelegramHost.Host
         {
             services.AddScoped<UserService>();
             services.AddScoped<DownloaderService>();
+            services.AddScoped<TgMessageService>();
             return services;
         }
     }

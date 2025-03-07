@@ -16,7 +16,7 @@ namespace MultiDownloader.DownloaderApi.Downloader
             _youtubeDataProvider = new YoutubeDataProviderYTDLP(logger);
         }
 
-        public Task<FileData> DownloadFileAsync(string url, string format)
+        public Task<FileData> DownloadFileAsync(string url, string format, string resolution)
         {
             throw new NotImplementedException();
         }

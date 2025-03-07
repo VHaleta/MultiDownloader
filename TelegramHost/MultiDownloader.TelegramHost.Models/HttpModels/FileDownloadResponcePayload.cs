@@ -1,6 +1,4 @@
-﻿using MultiDownloader.DownloaderApi.DownloaderProvider.Models;
-
-namespace MultiDownloader.DownloaderApi.Host.Models
+﻿namespace MultiDownloader.TelegramHost.Models.HttpModels
 {
     public class FileDownloadResponcePayload
     {

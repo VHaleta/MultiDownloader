@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.Hosting;
+using MultiDownloader.TelegramHost.Models.Extensions;
+using MultiDownloader.TelegramHost.TgBotProcessor.Handlers;
 using MultiDownloader.TelegramHost.TgBotProcessor.Services;
 using Serilog;
 using System;
@@ -10,24 +12,30 @@ using Telegram.Bot.Types.Enums;
 
 namespace MultiDownloader.TelegramHost.Processor
 {
-    public class TelegramBotHostedService : IHostedService
+    public class TelegramBotHostedService :
+        CallbackQueryHandler,
+        IHostedService
     {
         private readonly ITelegramBotClient _botClient;
         private readonly ILogger _logger;
         private CancellationTokenSource _cts;
         private readonly UserService _userService;
         private readonly DownloaderService _downloaderService;
+        private readonly TgMessageService _tgMessageService;
 
         public TelegramBotHostedService(
             ITelegramBotClient botClient,
             ILogger logger,
             UserService userService,
-            DownloaderService downloaderService)
+            DownloaderService downloaderService,
+            TgMessageService tgMessageService)
+            :base(downloaderService)
         {
             _botClient = botClient;
             _logger = logger;
             _userService = userService;
             _downloaderService = downloaderService;
+            _tgMessageService = tgMessageService;
         }
 
         public Task StartAsync(CancellationToken cancellationToken)
@@ -62,11 +70,15 @@ namespace MultiDownloader.TelegramHost.Processor
             switch (update.Type)
             {
                 case UpdateType.Message:
-                    _logger.Information($"Reseived update {update.Type}: {update.Message.Text} from {update.Message.Chat.Id}");
+                    _logger.Information($"Reseived update {update.Type}: {update.Message.Text} from {user.ChatId}");
                     handle = HandleMessageAsync(botClient, update, user);
                     break;
+                case UpdateType.CallbackQuery:
+                    _logger.Information($"Reseived update {update.Type}: {update.CallbackQuery.Data} from {user.ChatId}");
+                    handle = HandleCallbackQueryAsync(botClient, update, user);
+                    break;
                 default:
-                    _logger.Information($"Reseived unhandled update {update.Type} from {update.Message.Chat.Id}");
+                    _logger.Information($"Reseived unhandled update {update.Type} from {user.ChatId}");
                     return;
             }
 
@@ -90,8 +102,9 @@ namespace MultiDownloader.TelegramHost.Processor
             if(Uri.TryCreate(update.Message.Text, UriKind.RelativeOrAbsolute, out Uri? uriResult)
                 && (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps))
             {
-                var res = await _downloaderService.GetAvailableFormats($"http://localhost:5091/api/downloader/formats?url={uriResult}");
-                await botClient.SendMessage(user.ChatId, String.Join(" | ", res));
+                var clearUri = uriResult.ClearUri();
+                var formats = await _downloaderService.GetAvailableFormats(clearUri);
+                await _tgMessageService.SendFormatsMessage(botClient, user, clearUri, formats);
             }
         }
     }

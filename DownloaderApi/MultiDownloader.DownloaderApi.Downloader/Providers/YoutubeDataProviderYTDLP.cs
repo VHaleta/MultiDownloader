@@ -9,6 +9,10 @@ namespace MultiDownloader.DownloaderApi.Downloader.Providers
     public class YoutubeDataProviderYTDLP : IDataProvider
     {
         private readonly ILogger _logger;
+        private readonly string[] supportedFormats = new string[]
+        {
+
+        };
 
         private readonly string _getFormatsCommand =
             "yt-dlp --list-formats --flat-playlist --skip-download " +
@@ -26,31 +30,10 @@ namespace MultiDownloader.DownloaderApi.Downloader.Providers
             string cmdResult = LinuxCmdExecutor.RunCommand(String.Format(_getFormatsCommand, url));
             //Log.Information(cmdResult);
             List<YoutubeFormatInfo> ytFormats = ParseCmdOutput(cmdResult);
-            List<FormatInfo> formats = ytFormats.Select(x => x.MapToFormatInfo()).ToList();
+            List<FormatInfo> formats = ytFormats.Select(x => x.MapToFormatInfo())
+                .Where(x => x.Resolution != "unsupported").ToList();
 
             return formats;
-        }
-
-        public static List<YoutubeFormatInfo> RunCommandAndParseOutput(string command, StreamWriter writer)
-        {
-            string result = "";
-            using (System.Diagnostics.Process proc = new System.Diagnostics.Process())
-            {
-                proc.StartInfo.FileName = "/bin/bash";
-                proc.StartInfo.Arguments = "-c \" " + command + " \"";
-                proc.StartInfo.UseShellExecute = false;
-                proc.StartInfo.RedirectStandardOutput = true;
-                proc.StartInfo.RedirectStandardError = true;
-                proc.Start();
-
-                result += proc.StandardOutput.ReadToEnd();
-                result += proc.StandardError.ReadToEnd();
-
-                proc.WaitForExit();
-            }
-            var formatInfos = ParseCmdOutput(result);
-
-            return formatInfos;
         }
 
         public static List<YoutubeFormatInfo> ParseCmdOutput(string input)

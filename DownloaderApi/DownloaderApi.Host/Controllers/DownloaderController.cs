@@ -50,11 +50,12 @@ namespace MultiDownloader.DownloaderApi.Host.Controllers
             _logger.Information("Begin downloading file for URL: " + request.URL);
 
             FileData fileData = await _downloaderProcessor
-                .DownloadFileAsync(request.URL, request.Format);
+                .DownloadFileAsync(request.URL, request.Format, request.Resolution);
 
+            _logger.Information($"{fileData.Path}: downloaded");
             return Ok(
                 new FileDownloadResponcePayload()
-                { FileName = fileData.Name, FilePath = fileData.Path });
+                { FileData = new FileData { Name = fileData.Name, Path = fileData.Path } });
         }
     }
 }

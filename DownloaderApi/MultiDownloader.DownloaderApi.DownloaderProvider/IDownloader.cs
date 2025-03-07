@@ -6,6 +6,6 @@ namespace MultiDownloader.DownloaderApi.DownloaderProvider
     {
         Task<IEnumerable<FormatInfo>> GetAvailableFormatsAsync(string url);
 
-        Task<FileData> DownloadFileAsync(string url, string format);
+        Task<FileData> DownloadFileAsync(string url, string format, string resolution);
     }
 }
