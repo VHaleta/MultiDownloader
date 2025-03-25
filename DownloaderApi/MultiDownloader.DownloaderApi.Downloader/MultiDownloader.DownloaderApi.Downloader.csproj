@@ -7,11 +7,21 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Providers\download_tiktok.py" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Serilog" Version="4.2.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\MultiDownloader.DownloaderApi.DownloaderProvider\MultiDownloader.DownloaderApi.DownloaderProvider.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="python\download_tiktok.py">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

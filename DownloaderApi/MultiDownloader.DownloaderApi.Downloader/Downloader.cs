@@ -10,13 +10,15 @@ namespace MultiDownloader.DownloaderApi.Downloader
     public class Downloader : IDownloader
     {
         private readonly YoutubeDataProviderYTDLP _youtubeDataProvider;
+        private readonly TiktokDataProvider _tiktokDataProvider;
 
         public Downloader(ILogger logger)
         {
             _youtubeDataProvider = new YoutubeDataProviderYTDLP(logger);
+            _tiktokDataProvider = new TiktokDataProvider(logger);
         }
 
-        public Task<FileData> DownloadFileAsync(string url, string format, string resolution)
+        public Task<FileData> DownloadFileAsync(string url, string resolution)
         {
             throw new NotImplementedException();
         }
@@ -39,6 +41,8 @@ namespace MultiDownloader.DownloaderApi.Downloader
             {
                 case "www.youtube.com":
                     return _youtubeDataProvider;
+                case "vm.tiktok.com":
+                    return _tiktokDataProvider;
                 default:
                     return null;
             }

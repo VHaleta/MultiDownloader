@@ -13,6 +13,15 @@ namespace MultiDownloader.DownloaderApi.Downloader.Models
                 Proto = youtubeFormatInfo.Protocol
             };
 
+        public static FormatInfo MapToFormatInfo(this TiktokFormatInfo tiktokFormatInfo) =>
+            new FormatInfo()
+            {
+                Resolution = tiktokFormatInfo.Resolution,
+                Extension = tiktokFormatInfo.Extension,
+                Proto = tiktokFormatInfo.Protocol,
+                Size = tiktokFormatInfo.FileSize.ToString()
+            };
+
         private static string MapResolution(this string str) => str switch
         {
             "192x144" => "144p",

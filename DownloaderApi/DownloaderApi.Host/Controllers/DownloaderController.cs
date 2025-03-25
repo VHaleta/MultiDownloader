@@ -33,6 +33,7 @@ namespace MultiDownloader.DownloaderApi.Host.Controllers
                 .ToList();
 
                 string json = JsonSerializer.Serialize(new FormatsResponcePayload() { Formats = formats });
+                _logger.Information(json);
 
                 return json;
             }
@@ -50,7 +51,7 @@ namespace MultiDownloader.DownloaderApi.Host.Controllers
             _logger.Information("Begin downloading file for URL: " + request.URL);
 
             FileData fileData = await _downloaderProcessor
-                .DownloadFileAsync(request.URL, request.Format, request.Resolution);
+                .DownloadFileAsync(request.URL, request.Resolution);
 
             _logger.Information($"{fileData.Path}: downloaded");
             return Ok(

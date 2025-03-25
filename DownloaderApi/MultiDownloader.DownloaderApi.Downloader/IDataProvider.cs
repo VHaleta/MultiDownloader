@@ -10,5 +10,7 @@ namespace MultiDownloader.DownloaderApi.Downloader
     public interface IDataProvider
     {
         public IEnumerable<FormatInfo> GetAvailableFormats(string url);
+
+        public FileData DownloadVideoFile(string url, string resolution);
     }
 }

@@ -9,16 +9,18 @@ namespace MultiDownloader.DownloaderApi.Downloader.Providers
     public class YoutubeDataProviderYTDLP : IDataProvider
     {
         private readonly ILogger _logger;
-        private readonly string[] supportedFormats = new string[]
-        {
-
-        };
 
         private readonly string _getFormatsCommand =
             "yt-dlp --list-formats --flat-playlist --skip-download " +
             "--extractor-args \"youtube:player-client=-ios\" " +
             "\"{0}\"";
         // --cache-dir ~/.cache/yt-dlp
+
+        private readonly string _downloadAudioFileCommand =
+            "yt-dlp -f \"bestaudio\" --extract-audio --audio-format mp3 " +
+            "-o \"{1}%(title)s.%(ext)s\" " +
+            "--download-archive \"{1}/archive.txt\" " +
+            "\"{0}\"";
 
         public YoutubeDataProviderYTDLP(ILogger logger)
         {
@@ -28,15 +30,24 @@ namespace MultiDownloader.DownloaderApi.Downloader.Providers
         public IEnumerable<FormatInfo> GetAvailableFormats(string url)
         {
             string cmdResult = LinuxCmdExecutor.RunCommand(String.Format(_getFormatsCommand, url));
-            //Log.Information(cmdResult);
-            List<YoutubeFormatInfo> ytFormats = ParseCmdOutput(cmdResult);
+            List<YoutubeFormatInfo> ytFormats = ParseFormatsCmdOutput(cmdResult);
             List<FormatInfo> formats = ytFormats.Select(x => x.MapToFormatInfo())
                 .Where(x => x.Resolution != "unsupported").ToList();
 
+            //_logger.Information(cmdResult);
             return formats;
         }
 
-        public static List<YoutubeFormatInfo> ParseCmdOutput(string input)
+        public FileData DownloadAudioFile(string url)
+        {
+            string path = "/home/vhale/audioArchive/";
+            LinuxCmdExecutor.RunCommand(String.Format(_downloadAudioFileCommand, url, path));
+
+
+            return new FileData() { Path = "" };
+        }
+
+        public static List<YoutubeFormatInfo> ParseFormatsCmdOutput(string input)
         {
             var formats = new List<YoutubeFormatInfo>();
 
@@ -74,6 +85,11 @@ namespace MultiDownloader.DownloaderApi.Downloader.Providers
             }
 
             return formats;
+        }
+
+        public FileData DownloadVideoFile(string url, string resolution)
+        {
+            throw new NotImplementedException();
         }
     }
 }

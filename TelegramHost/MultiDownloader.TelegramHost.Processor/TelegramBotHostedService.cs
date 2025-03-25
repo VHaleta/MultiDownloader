@@ -102,9 +102,9 @@ namespace MultiDownloader.TelegramHost.Processor
             if(Uri.TryCreate(update.Message.Text, UriKind.RelativeOrAbsolute, out Uri? uriResult)
                 && (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps))
             {
-                var clearUri = uriResult.ClearUri();
-                var formats = await _downloaderService.GetAvailableFormats(clearUri);
-                await _tgMessageService.SendFormatsMessage(botClient, user, clearUri, formats);
+                //var clearUri = uriResult.ClearUri();
+                var formats = await _downloaderService.GetAvailableFormats(uriResult);
+                await _tgMessageService.SendFormatsMessage(botClient, user, uriResult, formats);
             }
         }
     }
