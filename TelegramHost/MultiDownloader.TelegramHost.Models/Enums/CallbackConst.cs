@@ -2,6 +2,7 @@
 {
     public static class CallbackConst
     {
-        public const string RequestDownload = "d";
+        public const string DownloadVideo = "dv";
+        public const string DownloadAudio = "da";
     }
 }

@@ -4,8 +4,8 @@ namespace MultiDownloader.DownloaderApi.Host.Models
 {
     public class FileDownloadResponcePayload
     {
-        public FileData FileData { get; set; }
-
+        public string Name { get; set; }
+        public string Path { get; set; }
         public string? Error { get; set; }
     }
 }

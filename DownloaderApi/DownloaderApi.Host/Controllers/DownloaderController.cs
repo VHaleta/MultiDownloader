@@ -51,12 +51,12 @@ namespace MultiDownloader.DownloaderApi.Host.Controllers
             _logger.Information("Begin downloading file for URL: " + request.URL);
 
             FileData fileData = await _downloaderProcessor
-                .DownloadFileAsync(request.URL, request.Resolution);
+                .DownloadVideoFileAsync(request.URL, request.Resolution);
 
-            _logger.Information($"{fileData.Path}: downloaded");
+            _logger.Information(fileData.Path);
             return Ok(
                 new FileDownloadResponcePayload()
-                { FileData = new FileData { Name = fileData.Name, Path = fileData.Path } });
+                { Name = fileData.Name, Path = fileData.Path });
         }
     }
 }

@@ -4,6 +4,7 @@ using Serilog;
 using System;
 using System.Diagnostics;
 using System.Text.Json;
+using System.Text.RegularExpressions;
 
 namespace MultiDownloader.DownloaderApi.Downloader.Providers
 {
@@ -38,9 +39,16 @@ namespace MultiDownloader.DownloaderApi.Downloader.Providers
         {
             string[] resolutionSptit = resolution.Split('X', 'x');
             string cmd = $"\"{_pythonScriptPath}\" \"{url}\" --download {resolutionSptit[0]} {resolutionSptit[1]}";
-            return new FileData();
+
+            string output = ExecutePythonCmd(cmd);
+            string path = Regex.Matches(output, @"(/[^\r\n]+\.mp4)")
+                        .Cast<Match>()
+                        .LastOrDefault()?.Value;
+
+            return new FileData() { Path = path, Name = "-" };
         }
 
+        /// <returns>Output from cli</returns>
         private string ExecutePythonCmd(string cmd)
         {
             var processStartInfo = new ProcessStartInfo
@@ -59,6 +67,11 @@ namespace MultiDownloader.DownloaderApi.Downloader.Providers
             process.WaitForExit();
 
             _logger.Information(output);
+
+            if(String.IsNullOrEmpty(errors))
+            {
+                _logger.Error(errors);
+            }
             return output;
         }
     }

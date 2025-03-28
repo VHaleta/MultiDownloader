@@ -1,7 +1,7 @@
 ﻿using MultiDownloader.TelegramHost.Models.HttpModels;
+using Newtonsoft.Json;
 using Serilog;
 using System.Text;
-using System.Text.Json;
 
 namespace MultiDownloader.TelegramHost.TgBotProcessor.Services
 {
@@ -30,7 +30,7 @@ namespace MultiDownloader.TelegramHost.TgBotProcessor.Services
             }
         }
 
-        public async Task<FileData> DownloadAudioFile(Uri uri)
+        public async Task<string> DownloadAudioFile(Uri uri)
         {
             var responce = await SendPostRequest<FileDownloadResponcePayload, FileDownloadRequestPaylaod>(
                 String.Format("http://localhost:5091/api/downloader/download"),
@@ -46,7 +46,28 @@ namespace MultiDownloader.TelegramHost.TgBotProcessor.Services
             }
             else
             {
-                return responce.FileData;
+                return responce.Path;
+            }
+        }
+
+        public async Task<string> DownloadVideoFile(Uri uri, string resolution)
+        {
+            var responce = await SendPostRequest<FileDownloadResponcePayload, FileDownloadRequestPaylaod>(
+                String.Format("http://localhost:5091/api/downloader/download"),
+                new FileDownloadRequestPaylaod()
+                {
+                    URL = uri.ToString(),
+                    Format = "mp4",
+                    Resolution = resolution
+                });
+            if (responce.Error != null)
+            {
+                throw new Exception("Http responce error: " + responce.Error);
+            }
+            else
+            {
+                _logger.Information("Received path: " +  responce.Path ?? "is null");
+                return responce.Path;
             }
         }
 
@@ -57,20 +78,21 @@ namespace MultiDownloader.TelegramHost.TgBotProcessor.Services
             response.EnsureSuccessStatusCode();
 
             string responseBody = await response.Content.ReadAsStringAsync();
-            return JsonSerializer.Deserialize<ResponseModel>(responseBody)
+            return JsonConvert.DeserializeObject<ResponseModel>(responseBody)
                 ?? throw new Exception("Json deserialization error for: " + responseBody);
         }
 
         private async Task<ResponseModel> SendPostRequest<ResponseModel, RequestPayload>(string url, RequestPayload requestPayload)
         {
-            var json = JsonSerializer.Serialize(requestPayload);
+            var json = JsonConvert.SerializeObject(requestPayload);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
             HttpResponseMessage response = await client.PostAsync(url, content);
             response.EnsureSuccessStatusCode();
 
             string responseBody = await response.Content.ReadAsStringAsync();
-            return JsonSerializer.Deserialize<ResponseModel>(responseBody)
+            _logger.Information($"{response.StatusCode}: {responseBody}");
+            return JsonConvert.DeserializeObject<ResponseModel>(responseBody)
                 ?? throw new Exception("Json deserialization error for: " + responseBody);
         }
     }

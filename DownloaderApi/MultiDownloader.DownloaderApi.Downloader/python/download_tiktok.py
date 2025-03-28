@@ -2,6 +2,7 @@ import sys
 import os
 import yt_dlp
 import json
+import uuid
 
 def list_formats(url):
     ydl_opts = {
@@ -35,9 +36,13 @@ def list_formats(url):
 
         print(json.dumps(result, indent=2, ensure_ascii=False))
 
+def generate_unique_filename():
+    unique_id = uuid.uuid4()
+    return f"video_{unique_id}.%(ext)s"
+
 def download_tiktok_video(url, target_width=None, target_height=None):
     output_dir = os.path.abspath(os.path.dirname(__file__))
-    output_template = os.path.join(output_dir, '%(title)s.%(ext)s')
+    output_template = os.path.join(output_dir, generate_unique_filename())
 
     # Default to best format if no resolution is specified
     selected_format = 'mp4/bestvideo+bestaudio'

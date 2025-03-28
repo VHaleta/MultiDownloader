@@ -25,7 +25,7 @@ namespace MultiDownloader.TelegramHost.TgBotProcessor.Services
                     var format = videosList[generalCount++];
                     keyboard[keyboard.Count - 1].Add(new InlineKeyboardButton(format.Resolution)
                     {
-                        CallbackData = String.Format("{0}|{1}|{2}", CallbackConst.RequestDownload, uri, format.Resolution)
+                        CallbackData = String.Format("{0}|{1}|{2}", CallbackConst.DownloadVideo, uri, format.Resolution)
                     });
                 }
             }
@@ -37,7 +37,7 @@ namespace MultiDownloader.TelegramHost.TgBotProcessor.Services
                     var format = videosList[generalCount++];
                     keyboard[keyboard.Count - 1].Add(new InlineKeyboardButton(format.Resolution)
                     {
-                        CallbackData = String.Format("{0}|{1}|{2}", CallbackConst.RequestDownload, uri, format.Resolution)
+                        CallbackData = String.Format("{0}|{1}|{2}", CallbackConst.DownloadVideo, uri, format.Resolution)
                     });
                 }
             }
@@ -46,7 +46,7 @@ namespace MultiDownloader.TelegramHost.TgBotProcessor.Services
                 keyboard.Add(new List<InlineKeyboardButton>());
                 keyboard[keyboard.Count - 1].Add(new InlineKeyboardButton("audio")
                 {
-                    CallbackData = String.Format("{0}|{1}|audio", CallbackConst.RequestDownload, uri)
+                    CallbackData = String.Format("{0}|{1}", CallbackConst.DownloadAudio, uri)
                 });
             }
 

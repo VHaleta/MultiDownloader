@@ -18,7 +18,6 @@ namespace MultiDownloader.TelegramHost.Processor
     {
         private readonly ITelegramBotClient _botClient;
         private readonly ILogger _logger;
-        private CancellationTokenSource _cts;
         private readonly UserService _userService;
         private readonly DownloaderService _downloaderService;
         private readonly TgMessageService _tgMessageService;
@@ -29,7 +28,7 @@ namespace MultiDownloader.TelegramHost.Processor
             UserService userService,
             DownloaderService downloaderService,
             TgMessageService tgMessageService)
-            :base(downloaderService)
+            : base(downloaderService, logger)
         {
             _botClient = botClient;
             _logger = logger;
@@ -40,14 +39,12 @@ namespace MultiDownloader.TelegramHost.Processor
 
         public Task StartAsync(CancellationToken cancellationToken)
         {
-            _cts = new CancellationTokenSource();
-
             ReceiverOptions receiverOptions = new() { AllowedUpdates = { } };
             _botClient.StartReceiving(
                 HandleUpdateAsync,
                 HandleErrorAsync,
                 receiverOptions,
-                _cts.Token
+                cancellationToken
             );
 
             _logger.Information("Telegram Bot started");
@@ -56,7 +53,6 @@ namespace MultiDownloader.TelegramHost.Processor
 
         public Task StopAsync(CancellationToken cancellationToken)
         {
-            _cts.Cancel();
             _logger.Information("Telegram Bot stopped");
             return Task.CompletedTask;
         }

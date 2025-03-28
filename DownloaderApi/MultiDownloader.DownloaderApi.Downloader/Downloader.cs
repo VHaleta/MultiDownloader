@@ -11,16 +11,24 @@ namespace MultiDownloader.DownloaderApi.Downloader
     {
         private readonly YoutubeDataProviderYTDLP _youtubeDataProvider;
         private readonly TiktokDataProvider _tiktokDataProvider;
+        private readonly ILogger _logger;
 
         public Downloader(ILogger logger)
         {
             _youtubeDataProvider = new YoutubeDataProviderYTDLP(logger);
             _tiktokDataProvider = new TiktokDataProvider(logger);
+            _logger = logger;
         }
 
-        public Task<FileData> DownloadFileAsync(string url, string resolution)
+        public async Task<FileData> DownloadVideoFileAsync(string url, string resolution)
         {
-            throw new NotImplementedException();
+            string hostName = new Uri(url).Host;
+            var dataProvider = GetDataProvider(hostName);
+
+            return await Task.Run(() =>
+            {
+                return dataProvider.DownloadVideoFile(url, resolution);
+            });
         }
 
         public async Task<IEnumerable<FormatInfo>> GetAvailableFormatsAsync(string url)
